@@ -1,6 +1,8 @@
 import type { NewsCategory, UserProfile } from '../types';
 
-const API_BASE = '/api';
+const API_BASE = window.location.origin.includes('localhost')
+  ? 'http://localhost:3001/api'
+  : '/api';
 
 export async function apiRegister(username: string, password: string): Promise<UserProfile> {
   const response = await fetch(`${API_BASE}/auth/register`, {

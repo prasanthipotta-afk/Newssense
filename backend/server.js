@@ -8,6 +8,8 @@ const PORT = process.env.PORT || 3001;
 
 app.use(cors());
 app.use(express.json());
+
+// Serve static files from the React frontend build
 app.use(express.static(path.join(__dirname, '../dist')));
 
 // Register API
@@ -99,9 +101,9 @@ app.put('/api/auth/profile', (req, res) => {
   });
 });
 
-// Wildcard route to serve the React frontend for all other client routes (React Router support)
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../dist', 'index.html'));
+// Anything that doesn't match an API route, send back the index.html file
+app.get('/*splat', (req, res) => {
+  res.sendFile(path.join(__dirname, '../dist/index.html'));
 });
 
 app.listen(PORT, () => {
